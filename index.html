@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Birthday Wish</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg-grad-1: #0f0c2b;
+            --bg-grad-2: #302b63;
+            --bg-grad-3: #24243e;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --accent-pink: #ff758c;
+            --accent-purple: #ff7eb3;
+            --text-main: #ffffff;
+            --text-muted: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3));
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        .aesthetic-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 3rem 2rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            text-align: center;
+            max-width: 380px;
+            width: 85%;
+            position: relative;
+            animation: slowGlow 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowGlow {
+            from { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3); }
+            to { box-shadow: 0 20px 60px rgba(255, 117, 140, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.5); }
+        }
+
+        h1 {
+            background: linear-gradient(to right, var(--accent-pink), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 0.5rem 0;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .character-sphere {
+            width: 130px;
+            height: 130px;
+            margin: 1rem auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        inset 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: floatSphere 4s ease-in-out infinite;
+        }
+
+        .character-sphere:hover {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        @keyframes floatSphere {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .btn-aesthetic {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 1.5rem;
+        }
+
+        .btn-aesthetic:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 117, 140, 0.6);
+        }
+
+        .qr-frame {
+            margin-top: 2.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .qr-frame img {
+            display: block;
+            max-width: 150px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .qr-label {
+            color: #333;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hint {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="aesthetic-card">
+    <h1>Happy Birthday</h1>
+    <p>Tap to change your vibe</p>
+    
+    <div class="character-sphere" id="character" onclick="changeCharacterAndCelebrate()">✨</div>
+    
+    <div>
+        <button class="btn-aesthetic" onclick="triggerCelebration()">Celebrate</button>
+    </div>
+    
+    <div class="qr-frame">
+        <img src="https://drive.google.com/file/d/1_fA5hvOS0KP_VMgG2ufCcKrmzH-DFMGb/view?usp=drivesdk" alt="QR Code">
+        <div class="qr-label">Scan to Send Love</div>
+    </div>
+    
+    <div class="hint">✨ Magic awaits on click ✨</div>
+</div>
+
+<script>
+    const characters = ['✨', '🐱', '🐼', '🍥', '🌸', '👒', '⚡'];
+    let charIndex = 0;
+
+    function triggerCelebration() {
+        try {
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ff758c', '#ff7eb3', '#ffffff', '#a8c0ff']
+            });
+        } catch (e) {
+            console.log("Confetti script loading...");
+        }
+    }
+
+    function changeCharacterAndCelebrate() {
+        charIndex = (charIndex + 1) % characters.length;
+        document.getElementById('character').innerText = characters[charIndex];
+        triggerCelebration();
+    }
+
+    window.onload = () => {
+        triggerCelebration();
+    };
+</script>
+
+</body>
+</html>
